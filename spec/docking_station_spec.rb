@@ -27,6 +27,12 @@ describe DockingStation do
      expect(DockingStation.new).to respond_to(:dock_bike).with(1).argument
   end
 
+  it "should raise an error when docking_station is full" do
+    station = DockingStation.new
+    station.dock_bike(Bike.new)
+    expect{ station.dock_bike(Bike.new) }.to raise_error("Docking Station is full!")
+  end
+
   it "should raise an error when bikes are not available" do
     expect{ DockingStation.new.release_bike }.to raise_error("No bikes available")
   end
