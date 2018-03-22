@@ -29,12 +29,13 @@ describe DockingStation do
 
   it "should raise an error when docking_station is full" do
     station = DockingStation.new
-    station.dock_bike(Bike.new)
+     20.times { station.dock_bike(Bike.new)}
     expect{ station.dock_bike(Bike.new) }.to raise_error("Docking Station is full!")
   end
 
   it "should raise an error when bikes are not available" do
-    expect{ DockingStation.new.release_bike }.to raise_error("No bikes available")
+    station = DockingStation.new
+    expect{ station.release_bike }.to raise_error("No bikes available")
   end
 
   it "should return a bike when a bike is available" do
