@@ -2,15 +2,27 @@ require "docking_station"
 require "bike"
 
 describe DockingStation do
+  it "should capacity for a new instance of DockingStation" do
+    docking_station = DockingStation.new(30)
+    expect(docking_station.capacity).to eq 30
+  end
 
+  describe "#release_bike" do
   it "expected to respond to release_bike" do
    is_expected.to respond_to(:release_bike)
+  end
+
+  it "should raise an error when bikes are not available" do
+    expect {subject.release_bike}.to raise_error("No bikes available")
   end
 
   it "gets a bike when passed release_bike" do
     subject.dock_bike(Bike.new)
     expect(subject.release_bike).to be_an_instance_of(Bike)
   end
+  end
+
+  describe "#dock_bike" do
 
   it "returns true if bike is working" do
     subject.dock_bike(Bike.new)
@@ -30,13 +42,11 @@ describe DockingStation do
     expect {subject.dock_bike(Bike.new)}.to raise_error("Docking Station is full")
   end
 
-  it "should raise an error when bikes are not available" do
-    expect {subject.release_bike}.to raise_error("No bikes available")
-  end
 
   it "should return a bike when a bike is available" do
     subject.dock_bike(Bike.new)
     expect(subject.release_bike).to be_an_instance_of(Bike)
   end
 
+end
 end
