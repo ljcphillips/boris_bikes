@@ -26,7 +26,7 @@ describe DockingStation do
 
   it "returns true if bike is working" do
     subject.dock_bike(Bike.new)
-    expect(subject.release_bike.working?).to be(true).or be(false)
+    expect(subject.release_bike.working).to be(true).or be(false)
   end
 
   it "expected to respond to dock_bike" do
@@ -48,5 +48,10 @@ describe DockingStation do
     expect(subject.release_bike).to be_an_instance_of(Bike)
   end
 
+  it "allows to report a bike as broken" do
+    bike = Bike.new
+    subject.dock_bike(bike, true)
+    expect(bike.working).to eq false
+  end
 end
 end
