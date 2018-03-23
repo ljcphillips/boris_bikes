@@ -8,15 +8,13 @@ describe DockingStation do
   end
 
   it "gets a bike when passed release_bike" do
-    station = DockingStation.new
-    station.dock_bike(Bike.new)
-   expect(station.release_bike).to be_an_instance_of(Bike)
+    subject.dock_bike(Bike.new)
+    expect(subject.release_bike).to be_an_instance_of(Bike)
   end
 
   it "returns true if bike is working" do
-    station = DockingStation.new
-    station.dock_bike(Bike.new)
-    expect(station.release_bike.working?).to be(true).or be(false)
+    subject.dock_bike(Bike.new)
+    expect(subject.release_bike.working?).to be(true).or be(false)
   end
 
   it "expected to respond to dock_bike" do
@@ -24,25 +22,21 @@ describe DockingStation do
   end
 
   it "expected to respond to dock_bike" do
-     expect(DockingStation.new).to respond_to(:dock_bike).with(1).argument
+     expect(subject).to respond_to(:dock_bike).with(1).argument
   end
 
   it "should raise an error when docking_station is full" do
-    station = DockingStation.new
-    21.times { station.dock_bike(Bike.new)}
-    expect(station.bikes.length).to eq DockingStation::DEFAULT_CAPACITY
+    (DockingStation::DEFAULT_CAPACITY).times { subject.dock_bike(Bike.new)}
+    expect {subject.dock_bike(Bike.new)}.to raise_error("Docking Station is full")
   end
 
   it "should raise an error when bikes are not available" do
-    station = DockingStation.new
-    station.release_bike
-    expect(station.bike).to eq nil
+    expect {subject.release_bike}.to raise_error("No bikes available")
   end
 
   it "should return a bike when a bike is available" do
-    docking_station = DockingStation.new
-    docking_station.dock_bike(Bike.new)
-    expect(docking_station.release_bike).to be_an_instance_of(Bike)
+    subject.dock_bike(Bike.new)
+    expect(subject.release_bike).to be_an_instance_of(Bike)
   end
 
 end
