@@ -30,7 +30,7 @@ describe DockingStation do
   it "should raise an error when docking_station is full" do
     station = DockingStation.new
     21.times { station.dock_bike(Bike.new)}
-    expect(station.bikes.length).to eq 20
+    expect(station.bikes.length).to eq DockingStation::DEFAULT_CAPACITY
   end
 
   it "should raise an error when bikes are not available" do
